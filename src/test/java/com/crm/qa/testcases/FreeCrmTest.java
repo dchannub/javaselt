@@ -10,6 +10,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -20,7 +21,7 @@ public class FreeCrmTest {
 
 	@BeforeMethod
 	public void setUp() throws Exception {
-		System.setProperty("webdriver.chrome.driver", "/Users/naveenkhunteta/Downloads/chromedriver");
+		System.setProperty("webdriver.chrome.driver", "./Driver/chromedriver.exe");
 		driver = new ChromeDriver();
 		js = (JavascriptExecutor) driver;
 		driver.get("https://www.freecrm.com/index.html");
@@ -83,8 +84,13 @@ public class FreeCrmTest {
 		File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 		// now copy the screenshot to desired location using copyFile //method
 		FileUtils.copyFile(src, 
-				new File("/Users/NaveenKhunteta/Documents/MyPOMFramework/PageObjectModel/screenshots/" + fileName +".png"));
+				new File("./screenshots/" + fileName +".png"));
 
+	}
+	
+	@AfterMethod
+	public void tearDown() {
+		driver.close();
 	}
 
 }
